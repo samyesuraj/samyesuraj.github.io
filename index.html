@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sam Yesuraj | Robotics Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <img class="image-gradient" src="img/gradient.png" alt="gradient">
+  <div class="layer-blur"></div>
+
+  <canvas id="robot-canvas" class="robot-bg-canvas"></canvas> <!-- Robot background canvas -->
+  <header class="header">
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item active">Home</li>
+        <li class="nav-item">Projects</li>
+        <li class="nav-item">Skills</li>
+        <li class="nav-item">Contact</li>
+      </ul>
+    </nav>
+    <div class="theme-toggle-container">
+      <label id="theme-toggle-label" for="theme-toggle-btn">Day Mode</label>
+      <input type="checkbox" id="theme-toggle-btn" class="theme-toggle-switch" />
+      <span class="theme-toggle-slider"></span>
+    </div>
+    <div class="rotate-toggle-container">
+      <label id="rotate-toggle-label" for="rotate-toggle-btn">Auto-Rotate</label>
+      <input type="checkbox" id="rotate-toggle-btn" class="rotate-toggle-switch" />
+      <span class="toggle-slider"></span>
+    </div>
+  </header>
+  <!-- About Card (top left) -->
+  <div class="info-card about-card">
+    <h2>About Me</h2>
+    <p>A passionate Robotics Engineering student 🚀 having experience in building smart machines, automation systems, and innovative robotics solutions using ROS, Arduino, Python, C++, and other cutting-edge technologies.</p>
+  </div>
+  <!-- Specs Card (bottom left) -->
+  <div class="info-card detail-card">
+    <h2>Find Me Online</h2>
+    <div class="social-buttons">
+      <a href="https://instagram.com/sam_yesuraj" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://linkedin.com/in/samyesuraj" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/samyesuraj" target="_blank" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+  </div>
+  <!-- Register Button (bottom left) -->
+  <div class="contact-card">
+    <button class="contact-btn">Contact Me <span class="arrow">→</span></button>
+  </div>
+  <!-- Skills Card (right) -->
+  <div class="info-card skills-card">
+    <h2>Major Skills</h2>
+    <ul class="skills-list">
+      <li>ROS</li>
+      <li>Python</li>
+      <li>C++</li>
+      <li>Arduino</li>
+      <li>OpenCV</li>
+    </ul>
+  </div>
+  <!-- My Journey Card (right bottom) -->
+  <div class="info-card my-journey-card">
+    <h2>My Journey</h2>
+    <div class="journey-section">
+      <strong>• B.Tech Robotics & Automation Engineering</strong><br>
+      <span>2021 - Present</span><br>
+      <span>Pursuing Robotics at Saintgits College of Engineering.</span>
+    </div>
+    <div class="journey-section" style="margin-top:1em;">
+      <strong>• Intern - Automation Systems</strong><br>
+      <span>June 2024 - Aug 2024</span><br>
+      <span>Worked on robotic arms and PLC integration.</span>
+    </div>
+  </div>
+  <footer class="footer">
+    <span>&copy; 2024 Sam Yesuraj. All rights reserved.</span>
+  </footer>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.178.0/examples/jsm/"
+      }
+    }
+    </script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
