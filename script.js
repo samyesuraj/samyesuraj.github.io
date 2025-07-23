@@ -89,20 +89,15 @@ function init() {
   const progressBar = document.getElementById('progress-bar');
   const progressBarInner = document.getElementById('progress-bar-inner');
   let progressBarLabel = document.getElementById('progress-bar-label');
-  if (!progressBarLabel) {
-    progressBarLabel = document.createElement('span');
-    progressBarLabel.id = 'progress-bar-label';
-    progressBar.appendChild(progressBarLabel);
-  }
 
-  // function updateProgressBar(percent) {
-  //   progressBarInner.style.width = percent + '%';
-  //   progressBarLabel.textContent = 'LOADING... ' + Math.floor(percent) + '%';
-  //   if (percent >= 100) {
-  //     progressBar.style.display = 'none';
-  //     document.getElementById('explore-btn').style.display = 'block';
-  //   }
-  // }
+  function updateProgressBar(percent) {
+    progressBarInner.style.width = percent + '%';
+    progressBarLabel.textContent = 'LOADING... ' + Math.floor(percent) + '%';
+    if (percent >= 100) {
+      progressBar.style.display = 'none';
+      document.getElementById('explore-btn').style.display = 'block';
+    }
+  }
 
   // Load GLB model
   gltfLoader.load('model/boston.glb', (gltf) => {
@@ -115,36 +110,14 @@ function init() {
   },  // Progress callback
   (progress) => {
     var percent = progress.loaded / progress.total * 100;
-    // updateProgressBar(percent);
+    updateProgressBar(percent);
   },
   // Error callback
   (error) => {
     console.error('Error loading GLB model:', error);
   });
 
-  var i = 0;
-  function move() {
-    if (i == 0) {
-      i = 1;
-      var elem1 = document.getElementById("progress-bar-inner");
-      var elem2 = document.getElementById("progress-bar-label");
-      var width = 10;
-      var id = setInterval(frame, 10);
-      function frame() {
-        if (width >= 100) {
-          clearInterval(id);
-          i = 0;
-          progressBar.style.display = 'none';
-          document.getElementById('explore-btn').style.display = 'block';
-        } else {
-          width++;
-          elem1.style.width = width + "%";
-          elem2.textContent = 'LOADING...' + width + "%";
-        }
-      }
-    }
-  }
-  move()
+
   
 
   
