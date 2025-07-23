@@ -7,11 +7,19 @@
   <link rel="icon" type="image/x-icon" href="/img/robotic-arm.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="loader.css">
 </head>
 <body>
+  <div id="loader-overlay">
+    <div class="loader-content">
+      <h1 class="loader-title">WELCOME TO MY<br>WORLD!</h1>
+      <p class="loader-subtitle">I’m Sam Yesuraj, a Robotic Engineering Student who is<br>enthusiastic about creating engaging and<br>delightful digital experiences.</p>
+      <div id="progress-bar"><div id="progress-bar-inner"></div></div>
+      <button id="explore-btn" style="display:none;">EXPLORE MY WORLD &rarr;</button>
+    </div>
+  </div>
   <img class="image-gradient" src="img/gradient.png" alt="gradient">
   <div class="layer-blur"></div>
-
   <canvas id="robot-canvas" class="robot-bg-canvas"></canvas> <!-- Robot background canvas -->
   <header class="header">
     <nav class="nav">
@@ -39,7 +47,7 @@
     <p>A passionate Robotics Engineering student 🚀 having experience in building smart machines, automation systems, and innovative robotics solutions using ROS, Arduino, Python, C++, and other cutting-edge technologies.</p>
   </div>
   <!-- Specs Card (bottom left) -->
-  <div class="info-card detail-card">
+  <div class="detail-card">
     <h2>Find Me Online</h2>
     <div class="social-buttons">
       <a href="https://instagram.com/sam_yesuraj" target="_blank" aria-label="Instagram">
@@ -52,10 +60,6 @@
         <i class="fab fa-github"></i>
       </a>
     </div>
-  </div>
-  <!-- Register Button (bottom left) -->
-  <div class="contact-card">
-    <button class="contact-btn">Contact Me <span class="arrow">→</span></button>
   </div>
   <!-- Skills Card (right) -->
   <div class="info-card skills-card">
@@ -73,10 +77,10 @@
     <h2>My Journey</h2>
     <div class="journey-section">
       <strong>• B.Tech Robotics & Automation Engineering</strong><br>
-      <span>2021 - Present</span><br>
+      <span>2023 - Present</span><br>
       <span>Pursuing Robotics at Saintgits College of Engineering.</span>
     </div>
-    <div class="journey-section" style="margin-top:1em;">
+    <div class="journey-section">
       <strong>• Intern - Automation Systems</strong><br>
       <span>June 2024 - Aug 2024</span><br>
       <span>Worked on robotic arms and PLC integration.</span>

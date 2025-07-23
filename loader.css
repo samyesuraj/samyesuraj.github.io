@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500&display=swap');
+
+#loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loader-title {
+  font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+  font-size: 5vw;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  margin: 0 0 2vw 0;
+}
+
+.loader-subtitle {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 2vw;
+  color: #fff;
+  text-align: left;
+  font-weight: 400;
+  margin: 0 0 4vw 0;
+  line-height: 1.3;
+}
+
+#progress-bar {
+  width: 20em;
+  height: 4em;
+  box-sizing: border-box;
+  padding: 1.1vw 2.8vw;
+  background: #fff;
+  border: none;
+  border-radius: 7em;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  margin: 2vw auto 0 auto;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', Arial, sans-serif;
+}
+#progress-bar-inner {
+  background: linear-gradient(90deg, #5b2fff 0%, #a18fff 100%);
+  height: 100%;
+  width: 0%;
+  border-radius: 7em;
+  transition: width 0.3s cubic-bezier(.4,0,.2,1);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+#progress-bar-label {
+  height: 100%;
+  width: 100%;
+  margin: 2vw auto 0 auto;
+  z-index: 2;
+  text-align: center;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 1.2vw;
+  font-weight: 1000;
+  color: #222;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+#explore-btn {
+  display: block;
+  width: 20em;
+  height: 4em;
+  margin: 2vw auto 0 auto;
+  box-sizing: border-box;
+  padding: 1.1vw 2.8vw;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 1.2vw;
+  font-weight: 700;
+  color: #fff;
+  background: #5b2fff;
+  border: none;
+  border-radius: 7em;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(91,47,255,0.10);
+  letter-spacing: 0.04em;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+#explore-btn:hover {
+  background: #3a1ccc;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(91,47,255,0.18);
+  transform: translateY(-10%);
+}
+
+/* Hide scrollbars and background for loader */
+html, body {
+  overflow: hidden !important;
+}

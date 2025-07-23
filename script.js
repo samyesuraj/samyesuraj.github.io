@@ -1,14 +1,12 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
-import { TextureLoader } from 'three';
 
 let scene, camera, renderer, model;
 const canvas = document.getElementById('robot-canvas');
 
 let camPos = { x: 0, y: 0, z: 5 };
 let lookAt = { x: 0, y: 0, z: 0 };
-let modelScale = 0.99;
+let modelScale = 0.4;
 
 let autoRotate = false; // Default to OFF
 let shadowPlane; // Store globally for theme switching
@@ -17,6 +15,7 @@ function setAutoRotate(on) {
   autoRotate = on;
   const toggle = document.getElementById('rotate-toggle-btn');
   toggle.checked = on;
+  
 }
 
 function setThemeMode(isNight) {
@@ -82,70 +81,74 @@ function init() {
   shadowPlane.receiveShadow = true;
   scene.add(shadowPlane);
 
-  // Soft shadow under model (make it large as well)
-  const shadowGeometry = new THREE.PlaneGeometry(40, 40);
-  const shadowMaterial = new THREE.ShadowMaterial({ opacity: 0.25 });
-  const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
-  shadowMesh.rotation.x = -Math.PI / 2;
-  shadowMesh.position.y = -1.1;
-  shadowMesh.receiveShadow = true;
-  scene.add(shadowMesh);
 
-  // Load FBX model with textures
-  const fbxLoader = new FBXLoader();
-  const textureLoader = new TextureLoader();
-
-  const loader = new GLTFLoader();
-
+  const gltfLoader = new GLTFLoader();
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
+  // Progress bar elements
+  const progressBar = document.getElementById('progress-bar');
+  const progressBarInner = document.getElementById('progress-bar-inner');
+  let progressBarLabel = document.getElementById('progress-bar-label');
+  if (!progressBarLabel) {
+    progressBarLabel = document.createElement('span');
+    progressBarLabel.id = 'progress-bar-label';
+    progressBar.appendChild(progressBarLabel);
+  }
 
-  fbxLoader.load('model/source/SpotHPRIG.fbx', (object) => {
-    console.log('Model loaded successfully:', object);
-    
-    // Load textures
-    const baseColor = textureLoader.load('model/textures/Material.001_Base_Color.png');
-    const metallic = textureLoader.load('model/textures/Material.001_Metallic.png');
-    const normal = textureLoader.load('model/textures/Material.001_Normal_OpenGL.png');
-    const roughness = textureLoader.load('model/textures/Material.001_Roughness.png');
-    
-    object.traverse((child) => {
-      if (child.isMesh) {
+  // function updateProgressBar(percent) {
+  //   progressBarInner.style.width = percent + '%';
+  //   progressBarLabel.textContent = 'LOADING... ' + Math.floor(percent) + '%';
+  //   if (percent >= 100) {
+  //     progressBar.style.display = 'none';
+  //     document.getElementById('explore-btn').style.display = 'block';
+  //   }
+  // }
 
-        child.material.map && (child.material.map.colorSpace = THREE.SRGBColorSpace);
-        child.castShadow = true;
-        child.receiveShadow = true;
-        
-        // Assign textures
-        child.material.map = baseColor;
-        child.material.metalnessMap = metallic;
-        child.material.normalMap = normal;
-        child.material.roughnessMap = roughness;
-        child.material.transparent = false;
-        child.material.opacity = 1;
-        child.material.needsUpdate = true;
-      }
-    });
-    
-    // Set initial position, scale, and rotation
-    object.position.set(0, -1, 0);
-    object.scale.set(modelScale, modelScale, modelScale);
-    object.rotation.set(0, 0, 0);
-    model = object;
+  // Load GLB model
+  gltfLoader.load('model/boston.glb', (gltf) => {
+    model = gltf.scene;
+    model.position.set(0, -1, 0);
+    model.scale.set(modelScale, modelScale, modelScale);
+    model.rotation.set(0, 0, 0);
     scene.add(model);
-    
-    console.log('Model added to scene, starting animation');
     animate();
-    
-  }, 
-  // Progress callback
+  },  // Progress callback
   (progress) => {
-    console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+    var percent = progress.loaded / progress.total * 100;
+    // updateProgressBar(percent);
   },
   // Error callback
   (error) => {
-    console.error('Error loading FBX model:', error);
+    console.error('Error loading GLB model:', error);
   });
+
+  var i = 0;
+  function move() {
+    if (i == 0) {
+      i = 1;
+      var elem1 = document.getElementById("progress-bar-inner");
+      var elem2 = document.getElementById("progress-bar-label");
+      var width = 10;
+      var id = setInterval(frame, 10);
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+          i = 0;
+          progressBar.style.display = 'none';
+          document.getElementById('explore-btn').style.display = 'block';
+        } else {
+          width++;
+          elem1.style.width = width + "%";
+          elem2.textContent = 'LOADING...' + width + "%";
+        }
+      }
+    }
+  }
+  move()
+  
+
+  
+  
 
   // Add toggle button logic
   const toggle = document.getElementById('rotate-toggle-btn');
@@ -160,6 +163,15 @@ function init() {
     setThemeMode(themeToggle.checked);
   });
   setThemeMode(false);
+
+  // Add click event to explore button to hide overlay
+  var exploreBtn = document.getElementById('explore-btn');
+  if (exploreBtn) {
+    exploreBtn.addEventListener('click', function() {
+      var loaderOverlay = document.getElementById('loader-overlay');
+      if (loaderOverlay) loaderOverlay.style.display = 'none';
+    });
+  }
 }
 
 function animate() {
@@ -171,7 +183,6 @@ function animate() {
     
     // Always keep model upright
     model.rotation.x = 0;
-    
     // Handle auto-rotation
     if (autoRotate) {
       model.rotation.y += 0.008;
